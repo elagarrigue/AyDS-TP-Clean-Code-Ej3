@@ -1,6 +1,8 @@
 package model;
 
 import controller.ParkingPriceUpdateListener;
+import rate.DayOfTheWeekRate;
+import rate.Rate;
 
 public interface ParkingModel {
 
@@ -8,4 +10,5 @@ public interface ParkingModel {
 
   String getPriceRates();
 
+  void addTimeRate(Rate rate);
 }

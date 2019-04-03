@@ -17,4 +17,19 @@ public class Rate {
   public float getFractionPrice() {
     return fractionPrice;
   }
+
+  public String getRateString() {
+
+    StringBuilder ratesString = new StringBuilder();
+      ratesString
+              .append(TimeUtils.minutesToHsMin(getTimeFraction()))
+              .append(" - $")
+              .append(getFractionPrice())
+              .append("\n");
+
+
+    return ratesString.toString();
+  }
+
+
 }

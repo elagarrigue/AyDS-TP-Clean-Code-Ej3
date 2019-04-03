@@ -2,8 +2,10 @@ package controller;
 
 import model.ParkingModel;
 import model.ParkingModule;
-import rate.RateCollection;
+import rate.*;
 import view.ParkingPriceView;
+
+import static rate.DayChecker.isNotWeekend;
 
 public class ParkingPriceController implements ParkingPriceUpdateListener {
 
@@ -15,10 +17,17 @@ public class ParkingPriceController implements ParkingPriceUpdateListener {
   }
 
   private void initRates() {
-    RateCollection.getInstance().addTimeRate(15, 20);
-    RateCollection.getInstance().addTimeRate(60, 60);
-    RateCollection.getInstance().addTimeRate(24 * 60, 800);
-    RateCollection.getInstance().addTimeRate(12 * 60, 600);
+    if (isNotWeekend()) {
+      parkingModel.addTimeRate(new DayOfTheWeekRate(15, 20));
+      parkingModel.addTimeRate(new DayOfTheWeekRate(60, 60));
+      parkingModel.addTimeRate(new DayOfTheWeekRate(24 * 60, 800));
+      parkingModel.addTimeRate(new DayOfTheWeekRate(12 * 60, 600));
+    } else {
+      parkingModel.addTimeRate(new Rate(15, 20));
+      parkingModel.addTimeRate(new Rate(60, 60));
+      parkingModel.addTimeRate(new Rate(24 * 60, 800));
+      parkingModel.addTimeRate(new Rate(12 * 60, 600));
+    }
   }
 
   public void onEventCalculate(int minutes) {

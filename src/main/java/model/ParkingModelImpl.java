@@ -1,13 +1,15 @@
 package model;
 
 import controller.ParkingPriceUpdateListener;
-import rate.RateCollection;
+import rate.*;
 
 class ParkingModelImpl implements ParkingModel {
 
-  private RateCollection rateCollection = RateCollection.getInstance();
+  private final RateCollection rateCollection;
 
-  ParkingModelImpl() { }
+  ParkingModelImpl(RateCollection rateCollection ) {
+    this.rateCollection = rateCollection;
+  }
 
   @Override public void calculatePrice(ParkingPriceUpdateListener listener, int minutes) {
 
@@ -18,6 +20,11 @@ class ParkingModelImpl implements ParkingModel {
 
   @Override public String getPriceRates() {
     return rateCollection.getRateString();
+  }
+
+  @Override
+  public void addTimeRate(Rate rate) {
+    rateCollection.addTimeRate(rate);
   }
 
 }

@@ -1,2 +1,4 @@
 rootProject.name = 'ayds-tp2-ej3'
+include 'AyDS-submodule-example'
+findProject(':AyDS-submodule-example')?.name = 'myservice'
 
